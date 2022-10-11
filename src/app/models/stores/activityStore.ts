@@ -26,22 +26,21 @@ export default class ActivityStore {
 
   //action
   loadActivities = async () => {
-    this.loadingInitial = true;
-
+    this.setLoadingInitial(true);
     try {
       const activities = await agent.Activities.list();
-
-      runInAction(() => {});
       activities.forEach((activity: Activity) => {
         activity.date = activity.date.split("T")[0]; //Exclude the time which is after the 'T'
         this.activities.push(activity); //mutate --> not adivisable in Redux
-        this.loadingInitial = false;
+        this.setLoadingInitial(false);
       });
     } catch (error) {
       console.log(error);
-      runInAction(() => {
-        this.loadingInitial = false;
-      });
+      this.setLoadingInitial(false);      
     }
   };
+
+  setLoadingInitial = (state: boolean) => {
+    this.loadingInitial = state;
+  }
 }
