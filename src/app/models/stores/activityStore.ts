@@ -106,6 +106,7 @@ export default class ActivityStore {
       await agent.Activities.delete(id);
       runInAction(() => {
         this.activities = [...this.activities.filter(a => a.id !== id)];
+        if(this.selectedActivity?.id === id) this.cancelSelectActivity();
         this.loading = false;
       })
     } catch (error) {
