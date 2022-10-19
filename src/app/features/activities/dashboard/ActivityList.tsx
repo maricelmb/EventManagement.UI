@@ -17,9 +17,6 @@ export default observer(function ActivityList() {
     setTarget(e.currentTarget.name);
     deleteActivity(id);
   }
-
-  
-
   return (
     <Segment>
       <Item.Group divided>

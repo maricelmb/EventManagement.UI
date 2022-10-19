@@ -10,12 +10,11 @@ import agent from "../../api/agent";
 import {v4 as uuid} from 'uuid';
 
 export default class ActivityStore {
-  //activities: Activity[] = [];
   activityRegistry =  new Map<string, Activity>();
   selectedActivity: Activity | undefined = undefined;
   editMode = false;
   loading = false;
-  loadingInitial = false;
+  loadingInitial = true; // [Issue 4] Fix flickering issue during reload
 
   constructor() {
     // makeObservable(this, {
@@ -27,8 +26,7 @@ export default class ActivityStore {
   }
 
   //action
-  loadActivities = async () => {
-    this.setLoadingInitial(true);
+  loadActivities = async () => {  
     try {
       const activities = await agent.Activities.list();
       activities.forEach((activity: Activity) => {
