@@ -8,7 +8,7 @@ import { useStore } from "../../../models/stores/store";
 export default observer(function ActivityList() {
   const [target, setTarget] = useState(""); // to make sure that only 1 button is in loading state
   const {activityStore} = useStore();
-  const {deleteActivity, activities, loading} = activityStore;
+  const {deleteActivity, activitiesByDate, loading} = activityStore;
 
   function handleActivityDelete(
     e: SyntheticEvent<HTMLButtonElement>,
@@ -23,7 +23,7 @@ export default observer(function ActivityList() {
   return (
     <Segment>
       <Item.Group divided>
-        {activities.map((activity) => (
+        {activitiesByDate.map((activity) => (
           <Item key={activity.id}>
             <Item.Content>
               <Item.Header as="a">{activity.title}</Item.Header>
